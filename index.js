@@ -19,7 +19,7 @@ app.get('/api/v2/hianime', async (req, res) => {
     try {
         // Replace this URL with the actual source URL of the anime data if you have a specific provider
         // For now, this is a placeholder that returns a successful response structure
-        const response = await axios.get('https://goanime-63i5ka1k.b4a.run/api/v2/hianime');
+        const response = await axios.get('https://api-aniwatch-v2.vercel.app/anime/home');
         res.json(response.data);
     } catch (error) {
         console.error("Error fetching data:", error.message);
