@@ -108,8 +108,16 @@
         ];
         
         // PASTE YOUR OWN DEPLOYED ANIWATCH API URL HERE
-        const ANIWATCH_URL = "https://goanime-63i5ka1k.b4a.run/api/v2/hianime";
+// Change this line in your index.html
+const ANIWATCH_URL = "https://goanime-63i5ka1k.b4a.run/api/v2/hianime";
 
+### 3. Verification Checklist
+1.  **Update `index.js`** on GitHub with the fixed code above.
+2.  **Redeploy** on Back4App and wait for the status to turn **Live** (green).
+3.  **Update `index.html`** on GitHub (or wherever you host your frontend) with the correct `ANIWATCH_URL`.
+4.  **Health Check Path:** In Back4App settings, ensure the Health Check path is set to `/` (not `/healthz` or `/api/...`).
+
+The "Failed to connect" error was happening because your server was trying to talk to itself and getting stuck! With these changes, it will now correctly grab the anime data from the external source.
         let currentProvider = 'gogo';
         let currentMirrorIndex = 0;
 
