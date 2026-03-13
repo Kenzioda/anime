@@ -15,6 +15,7 @@
         iframe { background: black; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
         .custom-loader { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .provider-btn.active { border-color: var(--primary); color: var(--primary); }
     </style>
 </head>
 <body>
@@ -22,9 +23,17 @@
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-[#0b0b0b]/90 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-            <h1 onclick="window.location.reload()" class="text-2xl font-black text-[#ffdd95] cursor-pointer italic tracking-tighter">
-                GO<span class="text-white">ANIME</span>
-            </h1>
+            <div class="flex items-center gap-6">
+                <h1 onclick="window.location.reload()" class="text-2xl font-black text-[#ffdd95] cursor-pointer italic tracking-tighter">
+                    GO<span class="text-white">ANIME</span>
+                </h1>
+                
+                <!-- Provider Toggle -->
+                <div class="hidden md:flex bg-white/5 p-1 rounded-lg border border-white/10 text-[10px] uppercase font-bold tracking-widest">
+                    <button onclick="switchProvider('gogo')" id="btn-gogo" class="provider-btn active px-3 py-1.5 rounded transition">Gogo</button>
+                    <button onclick="switchProvider('aniwatch')" id="btn-aniwatch" class="provider-btn px-3 py-1.5 rounded transition">HiAnime</button>
+                </div>
+            </div>
             
             <div class="flex-1 max-w-md relative">
                 <input type="text" id="search" placeholder="Search anime..." 
@@ -46,7 +55,7 @@
                 <span class="w-1 h-6 bg-[#ffdd95] rounded-full"></span> Popular Now
             </h2>
             <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <!-- Skeleton Skeletons -->
+                <!-- Skeletons -->
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
@@ -91,45 +100,65 @@
     </main>
 
     <script>
-        // List of multiple API mirrors to ensure one always works
-        const API_MIRRORS = [
-            "https://consumet-api-production-e852.up.railway.app",
-            "https://api.consumet.org",
-            "https://consumet-org-clone.vercel.app",
-            "https://c.delusionz.xyz"
+        // CONFIGURATION
+        const GOGO_MIRRORS = [
+            "https://consumet-api-production-e852.up.railway.app/anime/gogoanime",
+            "https://api.consumet.org/anime/gogoanime",
+            "https://c.delusionz.xyz/anime/gogoanime"
         ];
         
-        let currentMirrorIndex = 0;
-        let activeAPI = `${API_MIRRORS[currentMirrorIndex]}/anime/gogoanime`;
+        // PASTE YOUR OWN DEPLOYED ANIWATCH API URL HERE
+        const ANIWATCH_URL = "https://your-aniwatch-api.koyeb.app/api/v2/hianime"; 
 
-        // Utility to handle fetch with mirror rotation
+        let currentProvider = 'gogo';
+        let currentMirrorIndex = 0;
+
+        function switchProvider(p) {
+            currentProvider = p;
+            document.querySelectorAll('.provider-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${p}`).classList.add('active');
+            fetchHome();
+        }
+
+        function getBaseUrl() {
+            return currentProvider === 'gogo' ? GOGO_MIRRORS[currentMirrorIndex] : ANIWATCH_URL;
+        }
+
         async function robustFetch(url) {
             try {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error();
-                return await response.json();
+                const json = await response.json();
+                // Normalize Aniwatch response which nests data in a 'data' object
+                return currentProvider === 'aniwatch' ? json.data : json;
             } catch (err) {
-                console.warn("Mirror failed, switching...");
-                currentMirrorIndex++;
-                if (currentMirrorIndex < API_MIRRORS.length) {
-                    activeAPI = `${API_MIRRORS[currentMirrorIndex]}/anime/gogoanime`;
+                if (currentProvider === 'gogo' && currentMirrorIndex < GOGO_MIRRORS.length - 1) {
+                    currentMirrorIndex++;
                     document.getElementById('errorMessage').classList.remove('hidden');
-                    // Retry once with new mirror
-                    const retryUrl = url.replace(API_MIRRORS[currentMirrorIndex-1], API_MIRRORS[currentMirrorIndex]);
-                    return robustFetch(retryUrl);
+                    return robustFetch(url.replace(GOGO_MIRRORS[currentMirrorIndex-1], GOGO_MIRRORS[currentMirrorIndex]));
                 }
                 throw err;
             }
         }
 
         async function fetchHome() {
+            const grid = document.getElementById('animeGrid');
+            grid.innerHTML = '<div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>'.repeat(6);
+            
             try {
-                // Using 'top-airing' instead of recent for a better landing page
-                const data = await robustFetch(`${activeAPI}/top-airing`);
-                renderGrid(data.results);
+                let data;
+                if (currentProvider === 'gogo') {
+                    data = await robustFetch(`${getBaseUrl()}/top-airing`);
+                    renderGrid(data.results);
+                } else {
+                    data = await robustFetch(`${getBaseUrl()}/home`);
+                    renderGrid(data.spotlightAnimes.map(i => ({...i, title: i.name, image: i.poster})));
+                }
                 document.getElementById('errorMessage').classList.add('hidden');
             } catch (e) {
-                document.getElementById('animeGrid').innerHTML = '<p class="col-span-full text-center py-20 text-gray-500">All API nodes are currently busy. Please refresh in a minute.</p>';
+                grid.innerHTML = `<p class="col-span-full text-center py-20 text-gray-500">
+                    ${currentProvider === 'aniwatch' ? 'Did you deploy your Aniwatch API yet? Check the URL in the code.' : 'All Gogo nodes busy.'}
+                </p>`;
             }
         }
 
@@ -137,8 +166,9 @@
             document.getElementById('gridTitle').innerText = `Results for: ${query}`;
             document.getElementById('animeGrid').innerHTML = '<div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>'.repeat(6);
             try {
-                const data = await robustFetch(`${activeAPI}/${encodeURIComponent(query)}`);
-                renderGrid(data.results);
+                const data = await robustFetch(`${getBaseUrl()}/${currentProvider === 'gogo' ? '' : 'search?q='}${encodeURIComponent(query)}`);
+                const results = currentProvider === 'gogo' ? data.results : data.animes.map(i => ({...i, title: i.name, image: i.poster}));
+                renderGrid(results);
             } catch(e) { console.error(e); }
         }
 
@@ -157,7 +187,6 @@
                                 <i class="fa fa-play"></i>
                             </div>
                         </div>
-                        ${item.episodeNumber ? `<div class="absolute bottom-2 left-2 bg-black/80 text-[10px] px-2 py-0.5 rounded border border-white/10 font-bold">EP ${item.episodeNumber}</div>` : ''}
                     </div>
                     <p class="text-sm font-semibold line-clamp-2 group-hover:text-[#ffdd95] transition">${item.title}</p>
                 </div>
@@ -171,7 +200,18 @@
             window.scrollTo(0,0);
             
             try {
-                const data = await robustFetch(`${activeAPI}/info/${id}`);
+                let data;
+                if (currentProvider === 'gogo') {
+                    data = await robustFetch(`${getBaseUrl()}/info/${id}`);
+                } else {
+                    const info = await robustFetch(`${getBaseUrl()}/anime/${id}`);
+                    const eps = await robustFetch(`${getBaseUrl()}/anime/episodes/${id}`);
+                    data = {
+                        title: info.anime.info.name,
+                        description: info.anime.info.description,
+                        episodes: eps.episodes.map(e => ({ id: e.episodeId, number: e.number }))
+                    };
+                }
                 
                 document.getElementById('infoTitle').innerText = data.title;
                 document.getElementById('infoDesc').innerHTML = data.description || "No description available.";
@@ -184,41 +224,31 @@
                     </button>
                 `).join('');
 
-                if(data.episodes.length > 0) {
-                    playEp(data.episodes[0].id, epContainer.firstElementChild);
-                }
-            } catch (e) {
-                console.error("Details failed", e);
-            }
+                if(data.episodes.length > 0) playEp(data.episodes[0].id, epContainer.firstElementChild);
+            } catch (e) { console.error(e); }
         }
 
         async function playEp(epId, btn) {
             document.querySelectorAll('#epList button').forEach(b => b.classList.remove('active-ep'));
             btn.classList.add('active-ep');
-            
             const loader = document.getElementById('videoLoader');
             loader.classList.remove('hidden');
 
             try {
-                const data = await robustFetch(`${activeAPI}/watch/${epId}`);
-                
-                // Consumet usually returns gogocdn or streaming links
-                // We use Artplayer for M3U8 and standard iframe for others
-                const source = data.sources.find(s => s.quality === 'default') || data.sources[0];
-                
-                const playerFrame = document.getElementById('videoFrame');
-                
-                // If it's an HLS stream (m3u8), we use the artplayer proxy to avoid CORS/Player issues
-                if (source.url.includes('.m3u8')) {
-                    playerFrame.src = `https://artplayer.org/?url=${encodeURIComponent(source.url)}`;
+                let videoUrl;
+                if (currentProvider === 'gogo') {
+                    const data = await robustFetch(`${getBaseUrl()}/watch/${epId}`);
+                    videoUrl = (data.sources.find(s => s.quality === 'default') || data.sources[0]).url;
                 } else {
-                    playerFrame.src = source.url;
+                    // For Aniwatch, we have to pick a server (e.g., hd-1)
+                    const data = await robustFetch(`${getBaseUrl()}/episode/sources?animeEpisodeId=${epId}&server=hd-1&category=sub`);
+                    videoUrl = data.sources[0].url;
                 }
                 
+                const playerFrame = document.getElementById('videoFrame');
+                playerFrame.src = videoUrl.includes('.m3u8') ? `https://artplayer.org/?url=${encodeURIComponent(videoUrl)}` : videoUrl;
                 playerFrame.onload = () => loader.classList.add('hidden');
-
             } catch (e) {
-                console.error("Stream failed", e);
                 loader.classList.add('hidden');
             }
         }
@@ -227,15 +257,13 @@
             document.getElementById('mainView').classList.remove('hidden');
             document.getElementById('playerView').classList.add('hidden');
             document.getElementById('videoFrame').src = "";
-            document.getElementById('gridTitle').innerText = "Popular Now";
-            fetchHome(); // Refresh home
+            fetchHome();
         }
 
         document.getElementById('search').addEventListener('keypress', (e) => {
             if(e.key === 'Enter' && e.target.value.trim()) searchAnime(e.target.value);
         });
 
-        // Initialize
         window.onload = fetchHome;
     </script>
 </body>
