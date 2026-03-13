@@ -8,11 +8,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #ffdd95; --bg: #0b0b0b; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .aspect-poster { aspect-ratio: 2/3; }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .active-ep { background: var(--primary) !important; color: black !important; }
-        iframe { background: black; border-radius: 12px; }
+        .active-ep { background: var(--primary) !important; color: black !important; font-weight: bold; }
+        iframe { background: black; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .custom-loader { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -20,26 +22,34 @@
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-[#0b0b0b]/90 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-            <h1 onclick="location.reload()" class="text-2xl font-black text-[#ffdd95] cursor-pointer italic tracking-tighter">
+            <h1 onclick="window.location.reload()" class="text-2xl font-black text-[#ffdd95] cursor-pointer italic tracking-tighter">
                 GO<span class="text-white">ANIME</span>
             </h1>
             
             <div class="flex-1 max-w-md relative">
                 <input type="text" id="search" placeholder="Search anime..." 
-                    class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-2 px-5 pl-11 text-sm focus:ring-1 focus:ring-[#ffdd95] outline-none">
+                    class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-2 px-5 pl-11 text-sm focus:ring-1 focus:ring-[#ffdd95] outline-none transition-all">
                 <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
+        <!-- Error Message -->
+        <div id="errorMessage" class="hidden bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-xl mb-6 text-center text-sm">
+            Failed to connect to API. Retrying with backup server...
+        </div>
+
         <!-- Grid Section -->
         <div id="mainView">
             <h2 id="gridTitle" class="text-xl font-bold mb-6 flex items-center gap-2">
-                <span class="w-1 h-6 bg-[#ffdd95] rounded-full"></span> Recent Releases
+                <span class="w-1 h-6 bg-[#ffdd95] rounded-full"></span> Popular Now
             </h2>
             <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <!-- Skeleton -->
+                <!-- Skeleton Skeletons -->
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
                 <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
@@ -48,24 +58,31 @@
 
         <!-- Player Section -->
         <div id="playerView" class="hidden">
-            <button onclick="closePlayer()" class="mb-6 text-gray-400 hover:text-white flex items-center gap-2 text-sm">
-                <i class="fa fa-arrow-left"></i> Back to Home
+            <button onclick="closePlayer()" class="mb-6 text-gray-400 hover:text-white flex items-center gap-2 text-sm transition">
+                <i class="fa fa-arrow-left"></i> Back to Explore
             </button>
             
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div class="lg:col-span-3">
-                    <div class="aspect-video w-full shadow-2xl">
-                        <iframe id="videoFrame" class="w-full h-full" allowfullscreen frameborder="0"></iframe>
+                    <div class="aspect-video w-full shadow-2xl relative">
+                        <div id="videoLoader" class="absolute inset-0 flex items-center justify-center bg-black z-10 hidden">
+                            <div class="custom-loader"></div>
+                        </div>
+                        <iframe id="videoFrame" class="w-full h-full" allowfullscreen frameborder="0" referrerpolicy="no-referrer"></iframe>
                     </div>
                     <div class="mt-6 bg-[#161616] p-6 rounded-2xl border border-white/5">
                         <h2 id="infoTitle" class="text-2xl font-bold mb-2"></h2>
+                        <div id="infoTags" class="flex gap-2 mb-4"></div>
                         <p id="infoDesc" class="text-gray-400 text-sm leading-relaxed"></p>
                     </div>
                 </div>
                 
                 <div class="lg:col-span-1">
                     <div class="bg-[#161616] rounded-2xl border border-white/5 overflow-hidden">
-                        <div class="p-4 border-b border-white/5 font-bold">Episodes</div>
+                        <div class="p-4 border-b border-white/5 font-bold flex justify-between items-center">
+                            <span>Episodes</span>
+                            <span id="epTotal" class="text-xs text-gray-500"></span>
+                        </div>
                         <div id="epList" class="grid grid-cols-4 gap-2 p-4 max-h-[500px] overflow-y-auto"></div>
                     </div>
                 </div>
@@ -74,37 +91,75 @@
     </main>
 
     <script>
-        // Using a reliable public instance of Consumet API
-        const API = "https://consumet-api-production-e852.up.railway.app/anime/gogoanime";
+        // List of multiple API mirrors to ensure one always works
+        const API_MIRRORS = [
+            "https://consumet-api-production-e852.up.railway.app",
+            "https://api.consumet.org",
+            "https://consumet-org-clone.vercel.app",
+            "https://c.delusionz.xyz"
+        ];
+        
+        let currentMirrorIndex = 0;
+        let activeAPI = `${API_MIRRORS[currentMirrorIndex]}/anime/gogoanime`;
+
+        // Utility to handle fetch with mirror rotation
+        async function robustFetch(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error();
+                return await response.json();
+            } catch (err) {
+                console.warn("Mirror failed, switching...");
+                currentMirrorIndex++;
+                if (currentMirrorIndex < API_MIRRORS.length) {
+                    activeAPI = `${API_MIRRORS[currentMirrorIndex]}/anime/gogoanime`;
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    // Retry once with new mirror
+                    const retryUrl = url.replace(API_MIRRORS[currentMirrorIndex-1], API_MIRRORS[currentMirrorIndex]);
+                    return robustFetch(retryUrl);
+                }
+                throw err;
+            }
+        }
 
         async function fetchHome() {
             try {
-                const res = await fetch(`${API}/recent-episodes`);
-                const data = await res.json();
+                // Using 'top-airing' instead of recent for a better landing page
+                const data = await robustFetch(`${activeAPI}/top-airing`);
                 renderGrid(data.results);
+                document.getElementById('errorMessage').classList.add('hidden');
             } catch (e) {
-                console.error("Home load failed", e);
+                document.getElementById('animeGrid').innerHTML = '<p class="col-span-full text-center py-20 text-gray-500">All API nodes are currently busy. Please refresh in a minute.</p>';
             }
         }
 
         async function searchAnime(query) {
             document.getElementById('gridTitle').innerText = `Results for: ${query}`;
-            const res = await fetch(`${API}/${query}`);
-            const data = await res.json();
-            renderGrid(data.results);
+            document.getElementById('animeGrid').innerHTML = '<div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>'.repeat(6);
+            try {
+                const data = await robustFetch(`${activeAPI}/${encodeURIComponent(query)}`);
+                renderGrid(data.results);
+            } catch(e) { console.error(e); }
         }
 
         function renderGrid(list) {
             const grid = document.getElementById('animeGrid');
+            if(!list || list.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center py-20 text-gray-500">No anime found.</p>';
+                return;
+            }
             grid.innerHTML = list.map(item => `
                 <div class="group cursor-pointer" onclick="loadDetails('${item.id}')">
-                    <div class="relative aspect-poster rounded-xl overflow-hidden mb-2">
-                        <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                            <i class="fa fa-play text-white text-3xl"></i>
+                    <div class="relative aspect-poster rounded-xl overflow-hidden mb-2 shadow-lg">
+                        <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" loading="lazy">
+                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <div class="bg-[#ffdd95] text-black w-12 h-12 rounded-full flex items-center justify-center pl-1 shadow-2xl">
+                                <i class="fa fa-play"></i>
+                            </div>
                         </div>
+                        ${item.episodeNumber ? `<div class="absolute bottom-2 left-2 bg-black/80 text-[10px] px-2 py-0.5 rounded border border-white/10 font-bold">EP ${item.episodeNumber}</div>` : ''}
                     </div>
-                    <p class="text-sm font-medium line-clamp-2">${item.title}</p>
+                    <p class="text-sm font-semibold line-clamp-2 group-hover:text-[#ffdd95] transition">${item.title}</p>
                 </div>
             `).join('');
         }
@@ -112,48 +167,75 @@
         async function loadDetails(id) {
             document.getElementById('mainView').classList.add('hidden');
             document.getElementById('playerView').classList.remove('hidden');
+            document.getElementById('videoFrame').src = "";
+            window.scrollTo(0,0);
             
-            const res = await fetch(`${API}/info/${id}`);
-            const data = await res.json();
-            
-            document.getElementById('infoTitle').innerText = data.title;
-            document.getElementById('infoDesc').innerText = data.description || "No description available.";
-            
-            const epContainer = document.getElementById('epList');
-            epContainer.innerHTML = data.episodes.map(ep => `
-                <button onclick="playEp('${ep.id}', this)" class="bg-white/5 hover:bg-white/10 py-2 rounded text-xs transition">
-                    ${ep.number}
-                </button>
-            `).join('');
+            try {
+                const data = await robustFetch(`${activeAPI}/info/${id}`);
+                
+                document.getElementById('infoTitle').innerText = data.title;
+                document.getElementById('infoDesc').innerHTML = data.description || "No description available.";
+                document.getElementById('epTotal').innerText = `${data.episodes.length} Total`;
+                
+                const epContainer = document.getElementById('epList');
+                epContainer.innerHTML = data.episodes.map(ep => `
+                    <button id="ep-${ep.id}" onclick="playEp('${ep.id}', this)" class="bg-white/5 hover:bg-white/10 py-2 rounded text-xs transition border border-white/5">
+                        ${ep.number}
+                    </button>
+                `).join('');
 
-            if(data.episodes.length > 0) playEp(data.episodes[0].id, epContainer.children[0]);
+                if(data.episodes.length > 0) {
+                    playEp(data.episodes[0].id, epContainer.firstElementChild);
+                }
+            } catch (e) {
+                console.error("Details failed", e);
+            }
         }
 
         async function playEp(epId, btn) {
             document.querySelectorAll('#epList button').forEach(b => b.classList.remove('active-ep'));
             btn.classList.add('active-ep');
-
-            const res = await fetch(`${API}/watch/${epId}`);
-            const data = await res.json();
             
-            // Consumet returns M3U8, we use an embed player for ease of use
-            const stream = data.headers.Referer || "";
-            // Most reliable way for simple sites: Use the provided embed link
-            document.getElementById('videoFrame').src = data.sources[0].url.includes('m3u8') 
-                ? `https://artplayer.org/?url=${encodeURIComponent(data.sources[0].url)}`
-                : data.sources[0].url;
+            const loader = document.getElementById('videoLoader');
+            loader.classList.remove('hidden');
+
+            try {
+                const data = await robustFetch(`${activeAPI}/watch/${epId}`);
+                
+                // Consumet usually returns gogocdn or streaming links
+                // We use Artplayer for M3U8 and standard iframe for others
+                const source = data.sources.find(s => s.quality === 'default') || data.sources[0];
+                
+                const playerFrame = document.getElementById('videoFrame');
+                
+                // If it's an HLS stream (m3u8), we use the artplayer proxy to avoid CORS/Player issues
+                if (source.url.includes('.m3u8')) {
+                    playerFrame.src = `https://artplayer.org/?url=${encodeURIComponent(source.url)}`;
+                } else {
+                    playerFrame.src = source.url;
+                }
+                
+                playerFrame.onload = () => loader.classList.add('hidden');
+
+            } catch (e) {
+                console.error("Stream failed", e);
+                loader.classList.add('hidden');
+            }
         }
 
         function closePlayer() {
             document.getElementById('mainView').classList.remove('hidden');
             document.getElementById('playerView').classList.add('hidden');
             document.getElementById('videoFrame').src = "";
+            document.getElementById('gridTitle').innerText = "Popular Now";
+            fetchHome(); // Refresh home
         }
 
         document.getElementById('search').addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') searchAnime(e.target.value);
+            if(e.key === 'Enter' && e.target.value.trim()) searchAnime(e.target.value);
         });
 
+        // Initialize
         window.onload = fetchHome;
     </script>
 </body>
