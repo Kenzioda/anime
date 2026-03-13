@@ -47,6 +47,18 @@
             background-color: var(--primary);
             color: black;
         }
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid var(--primary);
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -112,8 +124,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <!-- Video Player Column -->
                 <div class="lg:col-span-3">
-                    <div class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative border border-white/5">
-                        <iframe id="mainPlayer" src="" class="w-full h-full" allowfullscreen frameborder="0"></iframe>
+                    <div id="playerContainer" class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative border border-white/5">
+                        <iframe id="mainPlayer" src="" class="w-full h-full" allowfullscreen frameborder="0" referrerpolicy="no-referrer"></iframe>
+                        <div id="playerLoader" class="absolute inset-0 flex items-center justify-center bg-black hidden">
+                            <div class="loading-spinner"></div>
+                        </div>
                     </div>
                     
                     <div class="mt-8 bg-[#161616] p-6 rounded-2xl border border-white/5">
@@ -151,7 +166,7 @@
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-xl font-black text-[#ffdd95] tracking-tighter italic mb-4">GOANIME</h2>
             <p class="text-gray-500 text-xs max-w-md mx-auto leading-loose">
-                GoAnime does not store any files on our server. We only linked to the media which is hosted on 3rd party services.
+                GoAnime is a demonstration project. We do not host any files on our servers. All content is provided by non-affiliated third parties.
             </p>
         </div>
     </footer>
@@ -159,11 +174,23 @@
     <script>
         /**
          * JUSTANIME API INTEGRATION
-         * Structure based on: https://github.com/JustAnimeCore/JustAnime
+         * Improved for GitHub Pages compatibility and error handling.
          */
         
-        // Recommended Base URL for JustAnime API
+        // Primary API Base URL
         const API_BASE = "https://anime-api-itzzzme.vercel.app/api"; 
+
+        // Helper to handle API fetch with retries
+        async function fetchAPI(endpoint) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`API Error on ${endpoint}:`, error);
+                return { success: false, error: error.message };
+            }
+        }
 
         // Navigation
         function showPage(pageId) {
@@ -180,15 +207,11 @@
 
         // Fetch Home Content
         async function fetchHome() {
-            try {
-                const res = await fetch(`${API_BASE}/`);
-                const data = await res.json();
-                if(data.success && data.results.spotlights) {
-                    renderGrid(data.results.spotlights, 'trendingGrid');
-                }
-            } catch (err) {
-                console.error("Error fetching home:", err);
-                document.getElementById('trendingGrid').innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Failed to load home content.</p>';
+            const data = await fetchAPI('/');
+            if(data.success && data.results.spotlights) {
+                renderGrid(data.results.spotlights, 'trendingGrid');
+            } else {
+                document.getElementById('trendingGrid').innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Unable to reach the server. Please try again later.</p>';
             }
         }
 
@@ -201,14 +224,11 @@
                 document.getElementById('searchTitle').innerText = `Results for: ${query}`;
                 document.getElementById('searchGrid').innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 animate-pulse">Searching the archives...</div>';
                 
-                try {
-                    const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
-                    const data = await res.json();
-                    if(data.success) {
-                        renderGrid(data.results.animes, 'searchGrid');
-                    }
-                } catch (err) {
-                    document.getElementById('searchGrid').innerHTML = '<p class="col-span-full text-center py-10">Error fetching results.</p>';
+                const data = await fetchAPI(`/search?q=${encodeURIComponent(query)}`);
+                if(data.success) {
+                    renderGrid(data.results.animes, 'searchGrid');
+                } else {
+                    document.getElementById('searchGrid').innerHTML = '<p class="col-span-full text-center py-10 text-red-400">Search failed. API might be offline.</p>';
                 }
             }
         });
@@ -224,7 +244,7 @@
             container.innerHTML = animes.map(anime => `
                 <div class="group cursor-pointer" onclick="loadAnime('${anime.id}')">
                     <div class="relative aspect-poster rounded-xl overflow-hidden mb-3 shadow-lg border border-white/5">
-                        <img src="${anime.poster}" alt="${anime.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <img src="${anime.poster}" alt="${anime.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'">
                         <div class="play-overlay absolute inset-0 bg-black/60 opacity-0 flex items-center justify-center transition duration-300">
                             <div class="bg-[#ffdd95] text-black w-14 h-14 rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition duration-300">
                                 <i class="fa fa-play text-xl"></i>
@@ -256,43 +276,32 @@
             document.getElementById('mainPlayer').src = "";
             document.getElementById('animeDescription').innerText = "";
 
-            try {
-                // 1. Get Info
-                const infoRes = await fetch(`${API_BASE}/info?id=${animeId}`);
-                const infoData = await infoRes.json();
-                
-                if(!infoData.success) throw new Error("Could not load info");
-
+            const infoData = await fetchAPI(`/info?id=${animeId}`);
+            if(infoData.success) {
                 const anime = infoData.results.anime;
                 document.getElementById('animeTitle').innerText = anime.info.name;
-                document.getElementById('animeDescription').innerText = anime.info.description || 'No summary available for this title.';
+                document.getElementById('animeDescription').innerText = anime.info.description || 'No summary available.';
                 document.getElementById('animeGenres').innerHTML = anime.info.stats.genres.map(g => 
                     `<span class="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[11px] font-medium text-gray-300">${g}</span>`
                 ).join('');
 
-                // 2. Get Episodes
-                const epRes = await fetch(`${API_BASE}/episodes/${animeId}`);
-                const epData = await epRes.json();
-                
+                const epData = await fetchAPI(`/episodes/${animeId}`);
                 if(epData.success) {
                     renderEpisodes(epData.results.episodes);
                     document.getElementById('epCount').innerText = epData.results.totalEpisodes;
                     
-                    // Auto-play first episode
                     if (epData.results.episodes.length > 0) {
                         playEpisode(epData.results.episodes[0].episodeId);
                     }
                 }
-
-            } catch (err) {
-                console.error("Error loading anime:", err);
-                document.getElementById('animeTitle').innerText = "Error loading content";
+            } else {
+                document.getElementById('animeTitle').innerText = "Error loading anime info";
             }
         }
 
         function renderEpisodes(episodes) {
             const container = document.getElementById('episodeList');
-            container.innerHTML = episodes.map((ep, index) => `
+            container.innerHTML = episodes.map((ep) => `
                 <button 
                     id="btn-ep-${ep.episodeId}"
                     onclick="playEpisode('${ep.episodeId}')" 
@@ -304,48 +313,37 @@
         }
 
         async function playEpisode(episodeId) {
-            // Update UI active state
             document.querySelectorAll('.ep-grid button').forEach(b => b.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-ep-${episodeId}`);
             if(activeBtn) activeBtn.classList.add('active');
 
-            try {
-                // Get Servers
-                const serverRes = await fetch(`${API_BASE}/servers?episodeId=${episodeId}`);
-                const serverData = await serverRes.json();
-                
-                if(!serverData.success) return;
+            const loader = document.getElementById('playerLoader');
+            loader.classList.remove('hidden');
 
-                // Pick first available sub server (defaulting to megacloud if available)
+            const serverData = await fetchAPI(`/servers?episodeId=${episodeId}`);
+            if(serverData.success) {
                 const servers = serverData.results.sub;
                 const bestServer = servers.find(s => s.serverName === 'megacloud') || servers[0];
                 
-                // Get Sources
-                const sourceRes = await fetch(`${API_BASE}/episode-sources?animeEpisodeId=${episodeId}&server=${bestServer.serverName}&category=sub`);
-                const sourceData = await sourceRes.json();
-
+                const sourceData = await fetchAPI(`/episode-sources?animeEpisodeId=${episodeId}&server=${bestServer.serverName}&category=sub`);
+                
                 if(sourceData.success && sourceData.results.sources.length > 0) {
                     const streamUrl = sourceData.results.sources[0].url;
-                    
-                    // Use Artplayer wrapper to handle HLS streams (.m3u8)
                     const playerFrame = document.getElementById('mainPlayer');
+                    
+                    // Most API streams are M3U8, Artplayer is used as a proxy
                     playerFrame.src = `https://artplayer.org/?url=${encodeURIComponent(streamUrl)}`;
                     
-                    // Auto-scroll to player on mobile
+                    playerFrame.onload = () => loader.classList.add('hidden');
+
                     if(window.innerWidth < 1024) {
-                        document.getElementById('mainPlayer').scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('playerContainer').scrollIntoView({ behavior: 'smooth' });
                     }
                 }
-
-            } catch (err) {
-                console.error("Error playing episode:", err);
             }
         }
 
-        // Initialize on Load
-        window.onload = () => {
-            fetchHome();
-        };
+        window.onload = fetchHome;
 
     </script>
 </body>
