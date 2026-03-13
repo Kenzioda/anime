@@ -3,348 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoAnime - Stream Your Favorite Anime</title>
+    <title>GoAnime - Quality Streaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary: #ffdd95;
-            --bg-dark: #0b0b0b;
-            --bg-card: #161616;
-        }
-        body {
-            background-color: var(--bg-dark);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-        }
-        .anime-card:hover .play-overlay {
-            opacity: 1;
-        }
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .aspect-poster {
-            aspect-ratio: 2/3;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0b0b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a2a;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #333;
-        }
-        .ep-grid button.active {
-            background-color: var(--primary);
-            color: black;
-        }
-        .loading-spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top: 3px solid var(--primary);
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        :root { --primary: #ffdd95; --bg: #0b0b0b; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; }
+        .aspect-poster { aspect-ratio: 2/3; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .active-ep { background: var(--primary) !important; color: black !important; }
+        iframe { background: black; border-radius: 12px; }
     </style>
 </head>
 <body>
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#0b0b0b]/95 backdrop-blur-md border-b border-white/5">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-8">
-                <h1 onclick="showPage('home')" class="text-2xl font-black text-[#ffdd95] cursor-pointer tracking-tighter italic">
-                    GO<span class="text-white">ANIME</span>
-                </h1>
-                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-                    <a href="#" onclick="showPage('home')" class="hover:text-white transition">Home</a>
-                    <a href="#" class="hover:text-white transition">Trending</a>
-                    <a href="#" class="hover:text-white transition">Latest</a>
-                </nav>
-            </div>
+    <header class="sticky top-0 z-50 bg-[#0b0b0b]/90 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+            <h1 onclick="location.reload()" class="text-2xl font-black text-[#ffdd95] cursor-pointer italic tracking-tighter">
+                GO<span class="text-white">ANIME</span>
+            </h1>
             
-            <div class="flex items-center gap-4 flex-1 max-w-md ml-4">
-                <div class="relative w-full">
-                    <input type="text" id="searchInput" 
-                        placeholder="Search for anime..." 
-                        class="w-full bg-[#1a1a1a] border border-white/5 rounded-lg py-2 px-5 pl-11 text-sm focus:ring-1 focus:ring-[#ffdd95] outline-none transition-all">
-                    <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                </div>
+            <div class="flex-1 max-w-md relative">
+                <input type="text" id="search" placeholder="Search anime..." 
+                    class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-2 px-5 pl-11 text-sm focus:ring-1 focus:ring-[#ffdd95] outline-none">
+                <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        
-        <!-- Home Section -->
-        <section id="homePage">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-bold flex items-center gap-2">
-                    <span class="w-1.5 h-6 bg-[#ffdd95] rounded-full"></span>
-                    Spotlight
-                </h2>
+        <!-- Grid Section -->
+        <div id="mainView">
+            <h2 id="gridTitle" class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-1 h-6 bg-[#ffdd95] rounded-full"></span> Recent Releases
+            </h2>
+            <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Skeleton -->
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-xl"></div>
             </div>
-            <div id="trendingGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <!-- Skeleton Loading -->
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
-            </div>
-        </section>
-
-        <!-- Search Results Section -->
-        <section id="searchPage" class="hidden">
-            <h2 id="searchTitle" class="text-xl font-bold mb-6">Search Results</h2>
-            <div id="searchGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
-        </section>
+        </div>
 
         <!-- Player Section -->
-        <section id="playerPage" class="hidden">
-            <button onclick="showPage('home')" class="mb-6 text-gray-400 hover:text-white flex items-center gap-2 text-sm font-medium">
-                <i class="fa fa-chevron-left text-xs"></i> Back to Explore
+        <div id="playerView" class="hidden">
+            <button onclick="closePlayer()" class="mb-6 text-gray-400 hover:text-white flex items-center gap-2 text-sm">
+                <i class="fa fa-arrow-left"></i> Back to Home
             </button>
             
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <!-- Video Player Column -->
                 <div class="lg:col-span-3">
-                    <div id="playerContainer" class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative border border-white/5">
-                        <iframe id="mainPlayer" src="" class="w-full h-full" allowfullscreen frameborder="0" referrerpolicy="no-referrer"></iframe>
-                        <div id="playerLoader" class="absolute inset-0 flex items-center justify-center bg-black hidden">
-                            <div class="loading-spinner"></div>
-                        </div>
+                    <div class="aspect-video w-full shadow-2xl">
+                        <iframe id="videoFrame" class="w-full h-full" allowfullscreen frameborder="0"></iframe>
                     </div>
-                    
-                    <div class="mt-8 bg-[#161616] p-6 rounded-2xl border border-white/5">
-                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                            <div>
-                                <h2 id="animeTitle" class="text-3xl font-black text-white mb-3">Anime Title</h2>
-                                <div class="flex flex-wrap gap-2 mb-4" id="animeGenres"></div>
-                            </div>
-                        </div>
-                        <p id="animeDescription" class="text-gray-400 text-sm leading-relaxed max-w-4xl"></p>
+                    <div class="mt-6 bg-[#161616] p-6 rounded-2xl border border-white/5">
+                        <h2 id="infoTitle" class="text-2xl font-bold mb-2"></h2>
+                        <p id="infoDesc" class="text-gray-400 text-sm leading-relaxed"></p>
                     </div>
                 </div>
-
-                <!-- Episodes Sidebar -->
+                
                 <div class="lg:col-span-1">
                     <div class="bg-[#161616] rounded-2xl border border-white/5 overflow-hidden">
-                        <div class="p-4 border-b border-white/5 flex items-center justify-between">
-                            <h3 class="font-bold flex items-center gap-2">
-                                <i class="fa fa-play-circle text-[#ffdd95]"></i> Episodes
-                            </h3>
-                            <span id="epCount" class="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">0</span>
-                        </div>
-                        <div id="episodeList" class="ep-grid grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2 p-4 max-h-[600px] overflow-y-auto">
-                            <!-- Episodes injected here -->
-                        </div>
+                        <div class="p-4 border-b border-white/5 font-bold">Episodes</div>
+                        <div id="epList" class="grid grid-cols-4 gap-2 p-4 max-h-[500px] overflow-y-auto"></div>
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 mt-20 py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-xl font-black text-[#ffdd95] tracking-tighter italic mb-4">GOANIME</h2>
-            <p class="text-gray-500 text-xs max-w-md mx-auto leading-loose">
-                GoAnime is a demonstration project. We do not host any files on our servers. All content is provided by non-affiliated third parties.
-            </p>
-        </div>
-    </footer>
-
     <script>
-        /**
-         * JUSTANIME API INTEGRATION
-         * Improved for GitHub Pages compatibility and error handling.
-         */
-        
-        // Primary API Base URL
-        const API_BASE = "https://anime-api-itzzzme.vercel.app/api"; 
+        // Using a reliable public instance of Consumet API
+        const API = "https://consumet-api-production-e852.up.railway.app/anime/gogoanime";
 
-        // Helper to handle API fetch with retries
-        async function fetchAPI(endpoint) {
-            try {
-                const response = await fetch(`${API_BASE}${endpoint}`);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return await response.json();
-            } catch (error) {
-                console.error(`API Error on ${endpoint}:`, error);
-                return { success: false, error: error.message };
-            }
-        }
-
-        // Navigation
-        function showPage(pageId) {
-            document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('searchPage').classList.add('hidden');
-            document.getElementById('playerPage').classList.add('hidden');
-            
-            if(pageId === 'home') document.getElementById('homePage').classList.remove('hidden');
-            if(pageId === 'search') document.getElementById('searchPage').classList.remove('hidden');
-            if(pageId === 'player') document.getElementById('playerPage').classList.remove('hidden');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Fetch Home Content
         async function fetchHome() {
-            const data = await fetchAPI('/');
-            if(data.success && data.results.spotlights) {
-                renderGrid(data.results.spotlights, 'trendingGrid');
-            } else {
-                document.getElementById('trendingGrid').innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Unable to reach the server. Please try again later.</p>';
+            try {
+                const res = await fetch(`${API}/recent-episodes`);
+                const data = await res.json();
+                renderGrid(data.results);
+            } catch (e) {
+                console.error("Home load failed", e);
             }
         }
 
-        // Search Logic
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('keypress', async (e) => {
-            if (e.key === 'Enter' && searchInput.value.trim()) {
-                const query = searchInput.value;
-                showPage('search');
-                document.getElementById('searchTitle').innerText = `Results for: ${query}`;
-                document.getElementById('searchGrid').innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 animate-pulse">Searching the archives...</div>';
-                
-                const data = await fetchAPI(`/search?q=${encodeURIComponent(query)}`);
-                if(data.success) {
-                    renderGrid(data.results.animes, 'searchGrid');
-                } else {
-                    document.getElementById('searchGrid').innerHTML = '<p class="col-span-full text-center py-10 text-red-400">Search failed. API might be offline.</p>';
-                }
-            }
-        });
+        async function searchAnime(query) {
+            document.getElementById('gridTitle').innerText = `Results for: ${query}`;
+            const res = await fetch(`${API}/${query}`);
+            const data = await res.json();
+            renderGrid(data.results);
+        }
 
-        // UI Grid Rendering
-        function renderGrid(animes, elementId) {
-            const container = document.getElementById(elementId);
-            if (!animes || animes.length === 0) {
-                container.innerHTML = '<p class="col-span-full text-center py-10 text-gray-500">No results found.</p>';
-                return;
-            }
-
-            container.innerHTML = animes.map(anime => `
-                <div class="group cursor-pointer" onclick="loadAnime('${anime.id}')">
-                    <div class="relative aspect-poster rounded-xl overflow-hidden mb-3 shadow-lg border border-white/5">
-                        <img src="${anime.poster}" alt="${anime.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'">
-                        <div class="play-overlay absolute inset-0 bg-black/60 opacity-0 flex items-center justify-center transition duration-300">
-                            <div class="bg-[#ffdd95] text-black w-14 h-14 rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition duration-300">
-                                <i class="fa fa-play text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-2 left-2 right-2 flex gap-1">
-                            <span class="bg-black/80 backdrop-blur-md text-[10px] font-bold px-2 py-0.5 rounded border border-white/10">
-                                ${anime.type || 'TV'}
-                            </span>
-                            ${anime.episodes?.sub ? `
-                                <span class="bg-[#ffdd95] text-black text-[10px] font-black px-1.5 py-0.5 rounded">
-                                    CC ${anime.episodes.sub}
-                                </span>
-                            ` : ''}
+        function renderGrid(list) {
+            const grid = document.getElementById('animeGrid');
+            grid.innerHTML = list.map(item => `
+                <div class="group cursor-pointer" onclick="loadDetails('${item.id}')">
+                    <div class="relative aspect-poster rounded-xl overflow-hidden mb-2">
+                        <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <i class="fa fa-play text-white text-3xl"></i>
                         </div>
                     </div>
-                    <h3 class="text-sm font-semibold line-clamp-2 group-hover:text-[#ffdd95] transition duration-300">${anime.name}</h3>
+                    <p class="text-sm font-medium line-clamp-2">${item.title}</p>
                 </div>
             `).join('');
         }
 
-        // Load Anime Details and Episodes
-        async function loadAnime(animeId) {
-            showPage('player');
+        async function loadDetails(id) {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('playerView').classList.remove('hidden');
             
-            // Loading UI
-            document.getElementById('animeTitle').innerText = "Fetching details...";
-            document.getElementById('episodeList').innerHTML = "";
-            document.getElementById('mainPlayer').src = "";
-            document.getElementById('animeDescription').innerText = "";
-
-            const infoData = await fetchAPI(`/info?id=${animeId}`);
-            if(infoData.success) {
-                const anime = infoData.results.anime;
-                document.getElementById('animeTitle').innerText = anime.info.name;
-                document.getElementById('animeDescription').innerText = anime.info.description || 'No summary available.';
-                document.getElementById('animeGenres').innerHTML = anime.info.stats.genres.map(g => 
-                    `<span class="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[11px] font-medium text-gray-300">${g}</span>`
-                ).join('');
-
-                const epData = await fetchAPI(`/episodes/${animeId}`);
-                if(epData.success) {
-                    renderEpisodes(epData.results.episodes);
-                    document.getElementById('epCount').innerText = epData.results.totalEpisodes;
-                    
-                    if (epData.results.episodes.length > 0) {
-                        playEpisode(epData.results.episodes[0].episodeId);
-                    }
-                }
-            } else {
-                document.getElementById('animeTitle').innerText = "Error loading anime info";
-            }
-        }
-
-        function renderEpisodes(episodes) {
-            const container = document.getElementById('episodeList');
-            container.innerHTML = episodes.map((ep) => `
-                <button 
-                    id="btn-ep-${ep.episodeId}"
-                    onclick="playEpisode('${ep.episodeId}')" 
-                    class="bg-[#2a2a2a] hover:bg-[#333] transition-all py-2 rounded-lg text-xs font-bold border border-white/5"
-                    title="Episode ${ep.number}">
+            const res = await fetch(`${API}/info/${id}`);
+            const data = await res.json();
+            
+            document.getElementById('infoTitle').innerText = data.title;
+            document.getElementById('infoDesc').innerText = data.description || "No description available.";
+            
+            const epContainer = document.getElementById('epList');
+            epContainer.innerHTML = data.episodes.map(ep => `
+                <button onclick="playEp('${ep.id}', this)" class="bg-white/5 hover:bg-white/10 py-2 rounded text-xs transition">
                     ${ep.number}
                 </button>
             `).join('');
+
+            if(data.episodes.length > 0) playEp(data.episodes[0].id, epContainer.children[0]);
         }
 
-        async function playEpisode(episodeId) {
-            document.querySelectorAll('.ep-grid button').forEach(b => b.classList.remove('active'));
-            const activeBtn = document.getElementById(`btn-ep-${episodeId}`);
-            if(activeBtn) activeBtn.classList.add('active');
+        async function playEp(epId, btn) {
+            document.querySelectorAll('#epList button').forEach(b => b.classList.remove('active-ep'));
+            btn.classList.add('active-ep');
 
-            const loader = document.getElementById('playerLoader');
-            loader.classList.remove('hidden');
-
-            const serverData = await fetchAPI(`/servers?episodeId=${episodeId}`);
-            if(serverData.success) {
-                const servers = serverData.results.sub;
-                const bestServer = servers.find(s => s.serverName === 'megacloud') || servers[0];
-                
-                const sourceData = await fetchAPI(`/episode-sources?animeEpisodeId=${episodeId}&server=${bestServer.serverName}&category=sub`);
-                
-                if(sourceData.success && sourceData.results.sources.length > 0) {
-                    const streamUrl = sourceData.results.sources[0].url;
-                    const playerFrame = document.getElementById('mainPlayer');
-                    
-                    // Most API streams are M3U8, Artplayer is used as a proxy
-                    playerFrame.src = `https://artplayer.org/?url=${encodeURIComponent(streamUrl)}`;
-                    
-                    playerFrame.onload = () => loader.classList.add('hidden');
-
-                    if(window.innerWidth < 1024) {
-                        document.getElementById('playerContainer').scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            }
+            const res = await fetch(`${API}/watch/${epId}`);
+            const data = await res.json();
+            
+            // Consumet returns M3U8, we use an embed player for ease of use
+            const stream = data.headers.Referer || "";
+            // Most reliable way for simple sites: Use the provided embed link
+            document.getElementById('videoFrame').src = data.sources[0].url.includes('m3u8') 
+                ? `https://artplayer.org/?url=${encodeURIComponent(data.sources[0].url)}`
+                : data.sources[0].url;
         }
+
+        function closePlayer() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('playerView').classList.add('hidden');
+            document.getElementById('videoFrame').src = "";
+        }
+
+        document.getElementById('search').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') searchAnime(e.target.value);
+        });
 
         window.onload = fetchHome;
-
     </script>
 </body>
 </html>
