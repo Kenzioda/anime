@@ -1,1630 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Diraja Technology</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
- 
-  <!-- <link href="assets/img/favicon.png" rel="icon"> -->
-  <link rel="icon" type="image/png" href="assets/img/favicon.ico" />
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  
- 
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Vesperr - v4.7.0
-  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoAnime - Stream Your Favorite Anime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ffdd95;
+            --bg-dark: #0b0b0b;
+            --bg-card: #161616;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .anime-card:hover .play-overlay {
+            opacity: 1;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .aspect-poster {
+            aspect-ratio: 2/3;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0b0b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+        .ep-grid button.active {
+            background-color: var(--primary);
+            color: black;
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <div class="logo">
-        <h1><a href="index.html"><img src="assets/img/logo2.png" alt="" class="img-fluid"></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Our Partner</a></li>
-          <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
-		  <li><a class="getstarted scrollto" href="#contact">Contact Us</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up"><a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a></h1>
-          <h2 data-aos="fade-up" data-aos-delay="400"></h2>
-          <div data-aos="fade-up" data-aos-delay="800">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
-          </div>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#0b0b0b]/95 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <h1 onclick="showPage('home')" class="text-2xl font-black text-[#ffdd95] cursor-pointer tracking-tighter italic">
+                    GO<span class="text-white">ANIME</span>
+                </h1>
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
+                    <a href="#" onclick="showPage('home')" class="hover:text-white transition">Home</a>
+                    <a href="#" class="hover:text-white transition">Trending</a>
+                    <a href="#" class="hover:text-white transition">Latest</a>
+                </nav>
+            </div>
+            
+            <div class="flex items-center gap-4 flex-1 max-w-md ml-4">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" 
+                        placeholder="Search for anime..." 
+                        class="w-full bg-[#1a1a1a] border border-white/5 rounded-lg py-2 px-5 pl-11 text-sm focus:ring-1 focus:ring-[#ffdd95] outline-none transition-all">
+                    <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
-          <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
-        </div>
-      </div>
-    </div>
+    </header>
 
-  </section><!-- End Hero -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Home Section -->
+        <section id="homePage">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-[#ffdd95] rounded-full"></span>
+                    Spotlight
+                </h2>
+            </div>
+            <div id="trendingGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Skeleton Loading -->
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+                <div class="animate-pulse bg-white/5 aspect-poster rounded-lg"></div>
+            </div>
+        </section>
 
-  <main id="main">
+        <!-- Search Results Section -->
+        <section id="searchPage" class="hidden">
+            <h2 id="searchTitle" class="text-xl font-bold mb-6">Search Results</h2>
+            <div id="searchGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+        </section>
 
-    <!-- ======= Clients Section ======= --> 
-    <section id="clients" class="clients clients">
-      <div class="container">
-		
-        <div class="row">
-<!-- 
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="" data-aos="zoom-in">
-          </div>
+        <!-- Player Section -->
+        <section id="playerPage" class="hidden">
+            <button onclick="showPage('home')" class="mb-6 text-gray-400 hover:text-white flex items-center gap-2 text-sm font-medium">
+                <i class="fa fa-chevron-left text-xs"></i> Back to Explore
+            </button>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Video Player Column -->
+                <div class="lg:col-span-3">
+                    <div class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative border border-white/5">
+                        <iframe id="mainPlayer" src="" class="w-full h-full" allowfullscreen frameborder="0"></iframe>
+                    </div>
+                    
+                    <div class="mt-8 bg-[#161616] p-6 rounded-2xl border border-white/5">
+                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                            <div>
+                                <h2 id="animeTitle" class="text-3xl font-black text-white mb-3">Anime Title</h2>
+                                <div class="flex flex-wrap gap-2 mb-4" id="animeGenres"></div>
+                            </div>
+                        </div>
+                        <p id="animeDescription" class="text-gray-400 text-sm leading-relaxed max-w-4xl"></p>
+                    </div>
+                </div>
 
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="100">
-          </div>
+                <!-- Episodes Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-[#161616] rounded-2xl border border-white/5 overflow-hidden">
+                        <div class="p-4 border-b border-white/5 flex items-center justify-between">
+                            <h3 class="font-bold flex items-center gap-2">
+                                <i class="fa fa-play-circle text-[#ffdd95]"></i> Episodes
+                            </h3>
+                            <span id="epCount" class="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">0</span>
+                        </div>
+                        <div id="episodeList" class="ep-grid grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2 p-4 max-h-[600px] overflow-y-auto">
+                            <!-- Episodes injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="200">
-          </div>
+    </main>
 
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="300">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="400">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="500">
-          </div>
--->
-        </div>
-
-      </div> 
-    </section> 
-	<!-- End Clients Section -->
-
-    <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>About Us</h2>
-        </div>
-
-        <div class="row content">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
-            <ul>
-              <li><i class="ri-check-double-line"></i> Kami memberikan garansi hingga maksimum selama 12 bulan untuk produk yang kami sediakan</li>
-              <li><i class="ri-check-double-line"></i> Dapatkan produk beserta source code dari pesanan Mitra, sehingga Mitra dapat mengembangkan sesuai keinginan Mitra sendiri</li>
-              <li><i class="ri-check-double-line"></i> Laporkan bugs yang Mitra temukan, dan kami akan segera memperbaikinya secara remote ( jarak jauh )</li>
-            </ul>
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="300">
-            <p>
-              Memberikan Solusi kepada Mitra pada setiap Aspek Bisnis IT dalam Ruang Lingkup yang diperlukan dengan Profesional, 
-			  Menguntungkan dan Disesuaikan dengan kebutuhan Mitra
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-20 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-xl font-black text-[#ffdd95] tracking-tighter italic mb-4">GOANIME</h2>
+            <p class="text-gray-500 text-xs max-w-md mx-auto leading-loose">
+                GoAnime does not store any files on our server. We only linked to the media which is hosted on 3rd party services.
             </p>
-            <a href="#" class="btn-learn-more">Learn More</a>
-          </div>
         </div>
+    </footer>
 
-      </div>
-    </section><!-- End About Us Section -->
+    <script>
+        /**
+         * JUSTANIME API INTEGRATION
+         * Structure based on: https://github.com/JustAnimeCore/JustAnime
+         */
+        
+        // Recommended Base URL for JustAnime API
+        const API_BASE = "https://anime-api-itzzzme.vercel.app/api"; 
 
-    <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
-      <div class="container">
+        // Navigation
+        function showPage(pageId) {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('searchPage').classList.add('hidden');
+            document.getElementById('playerPage').classList.add('hidden');
+            
+            if(pageId === 'home') document.getElementById('homePage').classList.remove('hidden');
+            if(pageId === 'search') document.getElementById('searchPage').classList.remove('hidden');
+            if(pageId === 'player') document.getElementById('playerPage').classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-        <div class="row">
-          <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
-            <img src="assets/img/counts-img.svg" alt="" class="img-fluid">
-          </div>
+        // Fetch Home Content
+        async function fetchHome() {
+            try {
+                const res = await fetch(`${API_BASE}/`);
+                const data = await res.json();
+                if(data.success && data.results.spotlights) {
+                    renderGrid(data.results.spotlights, 'trendingGrid');
+                }
+            } catch (err) {
+                console.error("Error fetching home:", err);
+                document.getElementById('trendingGrid').innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Failed to load home content.</p>';
+            }
+        }
 
-          <div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
-            <div class="content d-flex flex-column justify-content-center">
-              <div class="row">
-                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="count-box">
-                    <i class="bi bi-emoji-smile"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="65" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Professional</strong> Mengedepankan Profesionalisme, kemampuan Individu, dan Tim dalam menghasilkan Produk - Produk unggulan</p>
-                  </div>
+        // Search Logic
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter' && searchInput.value.trim()) {
+                const query = searchInput.value;
+                showPage('search');
+                document.getElementById('searchTitle').innerText = `Results for: ${query}`;
+                document.getElementById('searchGrid').innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 animate-pulse">Searching the archives...</div>';
+                
+                try {
+                    const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+                    const data = await res.json();
+                    if(data.success) {
+                        renderGrid(data.results.animes, 'searchGrid');
+                    }
+                } catch (err) {
+                    document.getElementById('searchGrid').innerHTML = '<p class="col-span-full text-center py-10">Error fetching results.</p>';
+                }
+            }
+        });
+
+        // UI Grid Rendering
+        function renderGrid(animes, elementId) {
+            const container = document.getElementById(elementId);
+            if (!animes || animes.length === 0) {
+                container.innerHTML = '<p class="col-span-full text-center py-10 text-gray-500">No results found.</p>';
+                return;
+            }
+
+            container.innerHTML = animes.map(anime => `
+                <div class="group cursor-pointer" onclick="loadAnime('${anime.id}')">
+                    <div class="relative aspect-poster rounded-xl overflow-hidden mb-3 shadow-lg border border-white/5">
+                        <img src="${anime.poster}" alt="${anime.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="play-overlay absolute inset-0 bg-black/60 opacity-0 flex items-center justify-center transition duration-300">
+                            <div class="bg-[#ffdd95] text-black w-14 h-14 rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition duration-300">
+                                <i class="fa fa-play text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-2 left-2 right-2 flex gap-1">
+                            <span class="bg-black/80 backdrop-blur-md text-[10px] font-bold px-2 py-0.5 rounded border border-white/10">
+                                ${anime.type || 'TV'}
+                            </span>
+                            ${anime.episodes?.sub ? `
+                                <span class="bg-[#ffdd95] text-black text-[10px] font-black px-1.5 py-0.5 rounded">
+                                    CC ${anime.episodes.sub}
+                                </span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-semibold line-clamp-2 group-hover:text-[#ffdd95] transition duration-300">${anime.name}</h3>
                 </div>
-
-                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="count-box">
-                    <i class="bi bi-journal-richtext"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Growth</strong> Mengedepankan Profesionalisme, kemampuan Individu, dan Tim dalam menghasilkan Produk - Produk unggulan</p>
-                  </div>
-                </div>
-
-                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="count-box">
-                    <i class="bi bi-clock"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Optimal Solution</strong> Memberikan Solusi yang Optimal dalam mengatasi berbagai permasalahan di dunia Teknologi maupun Kehidupan sehari - hari</p>
-                  </div>
-                </div>
-
-                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="count-box">
-                    <i class="bi bi-award"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Information Technology</strong> Menyatukan setiap Aspek Bisnis dalam bidang IT kepada setiap Lingkup Kerja</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End .content-->
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Counts Section -->
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Services</h2>
-          <p>Kami menyediakan berbagai macam produk dan layananan yang sesuai dengan bisnis anda</p>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">Internet of Things</a></h4>
-              <p class="description">Smart home? Smart Office? Kami dapat menyediakannya</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Security</a></h4>
-              <p class="description">Pastikan produk digital Anda aman dari serangan peretas</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Networking</a></h4>
-              <p class="description">Pemasangan jaringan komputer di kantor Anda, atau hanya sekadar perawatan</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">IT Consultant</a></h4>
-              <p class="description">Kami dapat menjadi sahabat terbaik Anda untuk solusi digital</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Services Section -->
-
-    <!-- ======= More Services Section ======= -->
-    <section id="more-services" class="more-services">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-md-6 d-flex align-items-stretch">
-            <div class="card" style='background-image: url("assets/img/more-services-1.jpg");' data-aos="fade-up" data-aos-delay="100">
-              <div class="card-body">
-                <h5 class="card-title"><a href="">Software Development</a></h5>
-                <p class="card-text">Pengembangan perangkat lunak yang sesuai dengan kebutuhan Anda</p>
-                <!-- <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div class="card" style='background-image: url("assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
-              <div class="card-body">
-                <h5 class="card-title"><a href="">Multimedia Service</a></h5>
-                <p class="card-text">Di era digital, layanan multimedia akan menjadi kebutuhan bagi bisnis Anda</p>
-                <!-- <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div> -->
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6 d-flex align-items-stretch mt-4">
-            <div class="card" style='background-image: url("assets/img/more-services-3.jpg");' data-aos="fade-up" data-aos-delay="100">
-              <div class="card-body">
-                <h5 class="card-title"><a href="">Hardware & Arduino Services</a></h5>
-                <p class="card-text">Penyedia Perangkat Keras & Layanan Arduino untuk robot dan elektronika</p>
-                <!-- <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 d-flex align-items-stretch mt-4">
-            <div class="card" style='background-image: url("assets/img/more-services-4.jpg");' data-aos="fade-up" data-aos-delay="200">
-              <div class="card-body">
-                <h5 class="card-title"><a href="">Digital Marketing</a></h5>
-                <p class="card-text">Kami dapat melakukan pemasaran digital untuk menaikan tingkat penjualan Anda</p>
-                <!-- <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End More Services Section -->
-
-    <!-- ======= Features Section ======= -->
-    <!--<section id="features" class="features">
-      <div class="container">
-
-         <div class="section-title" data-aos="fade-up">
-          <h2>Features</h2>
-          <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="300">
-          <div class="col-lg-3 col-md-4">
-            <div class="icon-box">
-              <i class="ri-store-line" style="color: #ffbb2c;"></i>
-              <h3><a href="">Lorem Ipsum</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box">
-              <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-              <h3><a href="">Dolor Sitema</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box">
-              <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
-              <h3><a href="">Sed perspiciatis</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
-              <h3><a href="">Magni Dolores</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-database-2-line" style="color: #47aeff;"></i>
-              <h3><a href="">Nemo Enim</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-              <h3><a href="">Eiusmod Tempor</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
-              <h3><a href="">Midela Teren</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-price-tag-2-line" style="color: #4233ff;"></i>
-              <h3><a href="">Pira Neve</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-anchor-line" style="color: #b2904f;"></i>
-              <h3><a href="">Dirada Pack</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-disc-line" style="color: #b20969;"></i>
-              <h3><a href="">Moton Ideal</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-base-station-line" style="color: #ff5828;"></i>
-              <h3><a href="">Verdo Park</a></h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-fingerprint-line" style="color: #29cc61;"></i>
-              <h3><a href="">Flavor Nivelanda</a></h3>
-            </div>
-          </div>
-        </div> 
-
-      </div> 
-    </section><!-- End Features Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials section-bg">
-      <div class="container">
-	  <div class="section-title" data-aos="fade-up">
-          <h2> Albert Einstein </h2>
-          <p>“It has become appallingly obvious that our technology has exceeded our humanity.”</p>
-        </div>
-
-        <!-- <div class="section-title" data-aos="fade-up">
-          <h2>Testimonials</h2>
-          <p>Magnam dolores commodi suscipit eum quidem consectetur velit</p>
-        </div>
-
-        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-<!--
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-<!--
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-<!--
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-<!--
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-<!--
-          </div>
-          <div class="swiper-pagination"></div>
-        </div> -->
-
-      </div>
-    </section><!-- End Testimonials Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Our Partner</h2>
-          <p>Kami telah mengerjakan berbagai macam permintaan dari perusahaan berikut</p>
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="200">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <!-- <li data-filter="*" class="filter-active">All</li> -->
-			  <li id="clicker" data-filter=".filter-app" class="filter-active">App</li>
-              <!-- <li data-filter=".filter-app">App</li> -->
-              <li data-filter=".filter-dm">Digital Marketing</li>
-			  <li data-filter=".filter-iot">Internet Of Things</li>
-			  <li data-filter=".filter-ms">Multimedia Services</li>
-			  <li data-filter=".filter-ntw">Networking</li>
-			  <li data-filter=".filter-sct">Security</li>
-			  <li data-filter=".filter-sd">Software Development</li>
-			  <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="400">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/app/1.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PDI Perjuangan</h4>
-                <!-- <p>App</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/app/2.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Telkomsel</h4>
-                <!-- <p>App</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		   
-		    <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/3.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Wahyu Asri Sentosa</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  
-          <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/4.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>ByantSoft Technology</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/5.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Fonterra</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/6.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Electrolux</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/7.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Anlene</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/8.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Fiesta</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/9.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Vivo</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-dm">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/dm/10.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT. Srikandi Pradhana Sakti</h4>
-                <!-- <p>DM</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		    <div class="col-lg-4 col-md-6 portfolio-item filter-iot">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/iot/11.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Nanobubble</h4>
-                <!-- <p>IOT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-iot">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/iot/12.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT. Prima Perkasa Raya</h4>
-                <!-- <p>IOT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-iot">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/iot/13.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>AirNav</h4>
-                <!-- <p>IOT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-ms">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ms/3.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Wahyu Asri Sentosa</h4>
-                <!-- <p>MS</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-ms">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ms/14.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>DKU</h4>
-                <!-- <p>MS</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-ntw">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ntw/3.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Wahyu Asri Sentosa</h4>
-                <!-- <p>NTW</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-ntw">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ntw/15.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Wika</h4>
-                <!-- <p>NTW</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-ntw">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ntw/16.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Smas</h4>
-                <!-- <p>NTW</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-ntw">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ntw/17.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>ExtraGEN</h4>
-                <!-- <p>NTW</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-ntw">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ntw/18.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Multi Sindomulya</h4>
-                <!-- <p>NTW</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sct">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sct/12.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Prima Perkasa Raya</h4>
-                <!-- <p>SCT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sct">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sct/16.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Smas</h4>
-                <!-- <p>SCT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sct">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sct/19.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Cloudmatika</h4>
-                <!-- <p>SCT</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/2.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Telkomsel</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/13.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>AirNav</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/16.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Smas</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/17.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>ExtraGEN</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/19.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Cloudmatika</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/20.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Ramah Halal Tour & Travel</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/21.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Colliers International</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/22.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>SpringHill Group</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/23.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>MRT Jakarta</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/30.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Toyota-Astra Motor</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  <div class="col-lg-4 col-md-6 portfolio-item filter-sd">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sd/31.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Tunas Toyota</h4>
-                <!-- <p>SD</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/1.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PDI Perjuangan</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/3.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Wahyu Asri Sentosa</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/10.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT. Srikandi Pradhana Sakti</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/12.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Prima Perkasa Raya</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/14.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>DKU</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/20.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Ramah Halal Tour & Travel</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/24.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Dompet Surga</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/25.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Ajariku.com</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/26.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Az-Zahra</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/27.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Cantik.com</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/28.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PT Delapan Belas</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-		  
-		   <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/web/29.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Attin Tour</h4>
-                <!-- <p>Web</p> -->
-                <!-- <div class="portfolio-links"> -->
-                  <!-- <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a> -->
-                  <!-- <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a> -->
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Portfolio Section -->
-
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
-      <div class="container">
-<!--
-        <div class="section-title" data-aos="fade-up">
-          <h2>Team</h2>
-          <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="100">
-              <div class="member-img">
-                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="200">
-              <div class="member-img">
-                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="300">
-              <div class="member-img">
-                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="400">
-              <div class="member-img">
-                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-              </div>
-            </div>
-          </div>
--->
-        </div>
-
-      </div>
-    </section><!-- End Team Section -->
-
-    <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
-      <div class="container">
-<!--
-        <div class="section-title">
-          <h2>Pricing</h2>
-          <p>Sit sint consectetur velit nemo qui impedit suscipit alias ea</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="box" data-aos="zoom-in-right" data-aos-delay="200">
-              <h3>Free</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
-            <div class="box recommended" data-aos="zoom-in" data-aos-delay="100">
-              <h3>Business</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
-            <div class="box" data-aos="zoom-in-left" data-aos-delay="200">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
--->
-        </div>
-
-      </div>
-    </section><!-- End Pricing Section -->
-
-    <!-- ======= F.A.Q Section ======= -->
- <!--   <section id="faq" class="faq">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Frequently Asked Questions</h2>
-        </div>
-
-        <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-5">
-            <i class="ri-question-line"></i>
-            <h4>Non consectetur a erat nam at lectus urna duis?</h4>
-          </div>
-          <div class="col-lg-7">
-            <p>
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </p>
-          </div>
-        </div><!-- End F.A.Q Item-->
-<!--
-        <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="col-lg-5">
-            <i class="ri-question-line"></i>
-            <h4>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</h4>
-          </div>
-          <div class="col-lg-7">
-            <p>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim.
-            </p>
-          </div>
-        </div><!-- End F.A.Q Item-->
-<!--
-        <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-          <div class="col-lg-5">
-            <i class="ri-question-line"></i>
-            <h4>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?</h4>
-          </div>
-          <div class="col-lg-7">
-            <p>
-              Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus.
-            </p>
-          </div>
-        </div><!-- End F.A.Q Item-->
-<!--
-        <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-          <div class="col-lg-5">
-            <i class="ri-question-line"></i>
-            <h4>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h4>
-          </div>
-          <div class="col-lg-7">
-            <p>
-              Aperiam itaque sit optio et deleniti eos nihil quidem cumque. Voluptas dolorum accusantium sunt sit enim. Provident consequuntur quam aut reiciendis qui rerum dolorem sit odio. Repellat assumenda soluta sunt pariatur error doloribus fuga.
-            </p>
-          </div>
-        </div><!-- End F.A.Q Item-->
-<!--
-        <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
-          <div class="col-lg-5">
-            <i class="ri-question-line"></i>
-            <h4>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</h4>
-          </div>
-          <div class="col-lg-7">
-            <p>
-              Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-            </p>
-          </div>
-        </div><!-- End F.A.Q Item-->
-<!--
-      </div>
-    </section><!-- End F.A.Q Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Contact Us</h2>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="contact-about">
-              <h3>Simplify to Build Life</h3>
-              <p>Follow Us On</p>
-              <div class="social-links">
-                <a href="https://twitter.com/diraja_ti" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100070141033682" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="https://www.instagram.com/dirajatechnology/?hl=en" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="https://id.linkedin.com/in/pt-diraja-technology-indonesia-aba730186" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-    <!--<div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
-			<div class="info">
-				<div>
-					<i class="ri-map-pin-line"></i>
-					<p><a href="https://goo.gl/maps/Ve38gwD3uXEP9hwT6" target="_blank">Graha Mampang</a> Lt.3 suite 305, 
-					<br>Jl. Mampang Prpt. Raya No.KAV.100, Kota Jakarta Selatan, DKI Jakarta, Indonesia 12760</p>
- 
-				<i class="ri-mail-send-line"></i>
-				<p><a href="mailto:info@dirajatechnology.com">info@dirajatechnology.com</a></p>
-				</div>
-
-
-              <div>
-                <i class="ri-phone-line"></i>
-                <p><a href="tel:+62217945333" target="_blank">+62 21 7945 333</a><br>
-				<a href="https://wa.me/6281293997188?text=Hello,%20I%20Need%20Your%20Services%20of%20...&source=&data=" target="_blank">+62 812 9399 7188</a><br>
-				<a href="https://wa.me/6287777944707?text=Hello,%20I%20Need%20Your%20Services%20of%20...&source=&data=" target="_blank">+62 877 7794 4707</a>
-				</p>
-              </div>
-
-            </div>
-        </div>-->
-		
-<div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
-  <div class="info">
-    <div>
-      <i class="ri-map-pin-line"></i>
-      <p><a href="https://goo.gl/maps/Ve38gwD3uXEP9hwT6" target="_blank"><span class="static-text">Graha Mampang</span></a> Lt.3 suite 305, <br> Jl. Mampang Prpt. Raya No.KAV.100, Kota Jakarta Selatan, DKI Jakarta, Indonesia 12760</p>
-    </div>
-
-    <div>
-      <i class="ri-mail-send-line"></i>
-      <p><a href="mailto:info@dirajatechnology.com" target="_blank"><span class="static-text">info@dirajatechnology.com</span></a></p>
-    </div>
-
-    <div>
-      <i class="ri-phone-line"></i>
-      <p><a href="tel:+62217945333" target="_blank"><span class="static-text">+62 21 7945 333</span></a><br>
-      <a href="https://wa.me/6281293997188?text=Hello,%20I%20Need%20Your%20Services%20of%20...&source=&data=" target="_blank"><span class="static-text">+62 812 9399 7188</span></a><br>
-      <a href="https://wa.me/6287777944707?text=Hello,%20I%20Need%20Your%20Services%20of%20...&source=&data=" target="_blank"><span class="static-text">+62 877 7794 4707</span></a>
-      </p>
-    </div>
-  </div>
-</div>
-
-<style>
-  .static-text {
-    color: black;
-    text-decoration: none;
-  }
-
-  .static-text:hover, .static-text:focus {
-    color: blue;
-    text-decoration: underline;
-  }
-
-  .static-text:visited {
-    color: purple;
-  }
-</style>
-
-
-		
-		
-<!--
-          <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
-			<form action="sendmail.php" method="post" role="form" class="php-email-form">
-				<div class="form-group">
-					<input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-				</div>
-				<div class="form-group">
-					<input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-				</div>
-				<div class="form-group">
-					<textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-				</div>
-				<div class="my-3">
-				<div class="loading">Loading</div>
-				<div class="error-message"></div>
-				<div class="sent-message">Your message has been sent. Thank you!</div>
-				</div>
-				<div class="text-center">
-					<button type="submit">Send Message</button>
-				</div>
-			</form>
-		  </div>
-
-
-<script>
-function sendMail() {
-  var name = document.getElementById("name").value;
-  var email = document.getElementById("email").value;
-  var subject = document.getElementById("subject").value;
-  var message = document.getElementById("message").value;
-
-  var body = "Name: " + name + "\r\nEmail: " + email + "\r\n\r\n" + message;
-  var mailto_link = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-  window.open(mailto_link, '_blank');
-}
-</script>
--->
-
-
-
-<div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
-  <form action="sendmail.php" method="post" role="form" class="php-email-form">
-    <div class="form-group">
-      <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-    </div>
-    <div class="form-group">
-      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-    </div>
-    <div class="form-group">
-      <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message" required></textarea>
-    </div>
-    <div class="my-3">
-      <div class="loading">Loading</div>
-      <div class="error-message"></div>
-      <div class="sent-message">Your message has been sent. Thank you!</div>
-    </div>
-    <div class="text-center">
-      <button type="submit" onclick="sendMail()">Send Message</button>
-    </div>
-  </form>
-</div>
-
-<script>
-function sendMail() {
-  var name = document.getElementById("name").value;
-  var email = document.getElementById("email").value;
-  var subject = document.getElementById("subject").value;
-  var message = document.getElementById("message").value;
-
-  if (name.trim() === '' || email.trim() === '' || subject.trim() === '' || message.trim() === '') {
-    alert("Please fill out all required fields.");
-    return;
-  }
-
-  var body = "Name: " + name + "\r\nEmail: " + email + "\r\n\r\n" + message;
-  var mailto_link = 'mailto:info@dirajatechnology.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-  window.open(mailto_link, '_blank');
-}
-</script>
-
-
-
-
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-lg-6 text-lg-left text-center">
-          <div class="copyright">
-            &copy; Copyright To the Rightful <strong>Owner</strong>. All Rights Reserved
-          </div>
-          <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/vesperr-free-bootstrap-template/ -->
-            <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
-            <!-- <a href="#intro" class="scrollto">Home</a> -->
-            <!-- <a href="#about" class="scrollto">About</a> -->
-            <!-- <a href="#">Privacy Policy</a> -->
-            <!-- <a href="#">Terms of Use</a> -->
-          </nav>
-        </div>
-      </div>
-    </div>	
-	
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+            `).join('');
+        }
+
+        // Load Anime Details and Episodes
+        async function loadAnime(animeId) {
+            showPage('player');
+            
+            // Loading UI
+            document.getElementById('animeTitle').innerText = "Fetching details...";
+            document.getElementById('episodeList').innerHTML = "";
+            document.getElementById('mainPlayer').src = "";
+            document.getElementById('animeDescription').innerText = "";
+
+            try {
+                // 1. Get Info
+                const infoRes = await fetch(`${API_BASE}/info?id=${animeId}`);
+                const infoData = await infoRes.json();
+                
+                if(!infoData.success) throw new Error("Could not load info");
+
+                const anime = infoData.results.anime;
+                document.getElementById('animeTitle').innerText = anime.info.name;
+                document.getElementById('animeDescription').innerText = anime.info.description || 'No summary available for this title.';
+                document.getElementById('animeGenres').innerHTML = anime.info.stats.genres.map(g => 
+                    `<span class="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[11px] font-medium text-gray-300">${g}</span>`
+                ).join('');
+
+                // 2. Get Episodes
+                const epRes = await fetch(`${API_BASE}/episodes/${animeId}`);
+                const epData = await epRes.json();
+                
+                if(epData.success) {
+                    renderEpisodes(epData.results.episodes);
+                    document.getElementById('epCount').innerText = epData.results.totalEpisodes;
+                    
+                    // Auto-play first episode
+                    if (epData.results.episodes.length > 0) {
+                        playEpisode(epData.results.episodes[0].episodeId);
+                    }
+                }
+
+            } catch (err) {
+                console.error("Error loading anime:", err);
+                document.getElementById('animeTitle').innerText = "Error loading content";
+            }
+        }
+
+        function renderEpisodes(episodes) {
+            const container = document.getElementById('episodeList');
+            container.innerHTML = episodes.map((ep, index) => `
+                <button 
+                    id="btn-ep-${ep.episodeId}"
+                    onclick="playEpisode('${ep.episodeId}')" 
+                    class="bg-[#2a2a2a] hover:bg-[#333] transition-all py-2 rounded-lg text-xs font-bold border border-white/5"
+                    title="Episode ${ep.number}">
+                    ${ep.number}
+                </button>
+            `).join('');
+        }
+
+        async function playEpisode(episodeId) {
+            // Update UI active state
+            document.querySelectorAll('.ep-grid button').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`btn-ep-${episodeId}`);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            try {
+                // Get Servers
+                const serverRes = await fetch(`${API_BASE}/servers?episodeId=${episodeId}`);
+                const serverData = await serverRes.json();
+                
+                if(!serverData.success) return;
+
+                // Pick first available sub server (defaulting to megacloud if available)
+                const servers = serverData.results.sub;
+                const bestServer = servers.find(s => s.serverName === 'megacloud') || servers[0];
+                
+                // Get Sources
+                const sourceRes = await fetch(`${API_BASE}/episode-sources?animeEpisodeId=${episodeId}&server=${bestServer.serverName}&category=sub`);
+                const sourceData = await sourceRes.json();
+
+                if(sourceData.success && sourceData.results.sources.length > 0) {
+                    const streamUrl = sourceData.results.sources[0].url;
+                    
+                    // Use Artplayer wrapper to handle HLS streams (.m3u8)
+                    const playerFrame = document.getElementById('mainPlayer');
+                    playerFrame.src = `https://artplayer.org/?url=${encodeURIComponent(streamUrl)}`;
+                    
+                    // Auto-scroll to player on mobile
+                    if(window.innerWidth < 1024) {
+                        document.getElementById('mainPlayer').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+            } catch (err) {
+                console.error("Error playing episode:", err);
+            }
+        }
+
+        // Initialize on Load
+        window.onload = () => {
+            fetchHome();
+        };
+
+    </script>
 </body>
-
 </html>
