@@ -12,10 +12,10 @@ COPY . .
 RUN if [ -f package.json ]; then npm install; fi
 
 # Set the PORT environment variable
-ENV PORT=4000
+ENV PORT=3000
 
 # Expose the port
-EXPOSE 4000
+EXPOSE 3000
 
 # Start the application
 # If your repo doesn't have a "start" script in package.json, 
